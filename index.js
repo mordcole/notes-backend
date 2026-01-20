@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-app.use(express.static('dist'))
 
 let notes = [
   {
@@ -28,8 +27,13 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-app.use(express.json())
 app.use(requestLogger)
+app.use(express.static('dist'))
+app.use(express.json())
+
+app.get('/', (request, response) => {
+  response.send('<h1>Hello World!</h1>')
+})
 
 app.get('/api/notes', (request, response) => {
   response.json(notes)
@@ -80,7 +84,7 @@ app.delete('/api/notes/:id', (request, response) => {
 })
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).json({ error: 'unknown endpoint' })
+  response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
