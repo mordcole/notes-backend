@@ -12,8 +12,8 @@ yarn-debug.log*
 pnpm-debug.log*
 
 # build output
-dist
-build
+# dist
+# build
 
 # OS / editor junk
 .DS_Store
